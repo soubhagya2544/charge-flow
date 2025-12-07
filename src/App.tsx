@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div style={{ minHeight: '100vh' }}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={

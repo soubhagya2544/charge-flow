@@ -1,62 +1,89 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, X, ArrowRight, Check, Zap, Shield, Users, TrendingUp, Globe, BarChart } from 'lucide-react';
+import { Menu, X, ArrowRight, Zap, Shield, Users, TrendingUp, Globe } from 'lucide-react';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const features = [
-    { icon: Shield, title: 'Secure Payments', description: 'Bank-grade security with PCI DSS compliance' },
-    { icon: Users, title: 'Multi-Role System', description: 'Customer, Retailer, Distributor, Master Distributor, API User, Admin' },
-    { icon: TrendingUp, title: 'Real-time Analytics', description: 'Track transactions, commissions, and performance' },
-    { icon: Globe, title: 'API Integration', description: 'Seamless integration with your existing systems' },
-  ];
-
   return (
-    <div className="min-h-screen bg-white">
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <Zap className="w-8 h-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">Charge Flow</span>
+      <nav style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        backgroundColor: '#ffffff',
+        borderBottom: '1px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '4rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Zap style={{ width: '32px', height: '32px', color: '#2563eb' }} />
+              <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#111827' }}>Charge Flow</span>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">Features</a>
-              <a href="#roles" className="text-gray-700 hover:text-blue-600 transition-colors">User Roles</a>
-              <a href="#benefits" className="text-gray-700 hover:text-blue-600 transition-colors">Benefits</a>
-              <button
-                onClick={() => navigate('/login')}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200"
-              >
-                Login
-              </button>
+            <div style={{ display: 'none' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                <a href="#features" style={{ color: '#374151', textDecoration: 'none', transition: 'color 0.2s' }}>Features</a>
+                <a href="#roles" style={{ color: '#374151', textDecoration: 'none', transition: 'color 0.2s' }}>User Roles</a>
+                <a href="#benefits" style={{ color: '#374151', textDecoration: 'none', transition: 'color 0.2s' }}>Benefits</a>
+                <button
+                  onClick={() => navigate('/login')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    backgroundColor: '#2563eb',
+                    color: 'white',
+                    borderRadius: '0.5rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  Login
+                </button>
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              style={{
+                padding: '0.5rem',
+                borderRadius: '0.5rem',
+                border: 'none',
+                backgroundColor: 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
-            <div className="px-4 py-4 space-y-3">
-              <a href="#features" className="block text-gray-700 hover:text-blue-600">Features</a>
-              <a href="#roles" className="block text-gray-700 hover:text-blue-600">User Roles</a>
-              <a href="#benefits" className="block text-gray-700 hover:text-blue-600">Benefits</a>
+          <div style={{ borderTop: '1px solid #e5e7eb', backgroundColor: '#ffffff', padding: '1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <a href="#features" style={{ color: '#374151', textDecoration: 'none' }}>Features</a>
+              <a href="#roles" style={{ color: '#374151', textDecoration: 'none' }}>User Roles</a>
+              <a href="#benefits" style={{ color: '#374151', textDecoration: 'none' }}>Benefits</a>
               <button
                 onClick={() => navigate('/login')}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                style={{
+                  width: '100%',
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#2563eb',
+                  color: 'white',
+                  borderRadius: '0.5rem',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
               >
                 Login
               </button>
@@ -66,25 +93,74 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Power Your <span className="text-blue-600">Recharge Business</span>
+      <section style={{
+        position: 'relative',
+        background: 'linear-gradient(to bottom right, #eff6ff, #ffffff, #f0f9ff)',
+        overflow: 'hidden',
+        padding: '5rem 1rem'
+      }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center' }}>
+            <h1 style={{ fontSize: '3.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '1.5rem' }}>
+              Power Your <span style={{ color: '#2563eb' }}>Recharge Business</span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            <p style={{ fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem', maxWidth: '48rem', margin: '0 auto 2rem' }}>
               Complete B2B recharge platform with multi-level distribution, real-time analytics, and seamless API integration
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={() => navigate('/login')}
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                style={{
+                  padding: '1rem 2rem',
+                  backgroundColor: '#2563eb',
+                  color: 'white',
+                  borderRadius: '0.5rem',
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  transition: 'all 0.3s',
+                  transform: 'scale(1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#1d4ed8';
+                  e.currentTarget.style.boxShadow = '0 10px 15px rgba(0,0,0,0.15)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#2563eb';
+                  e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               >
-                Get Started <ArrowRight className="inline-block ml-2 w-5 h-5" />
+                Get Started <ArrowRight style={{ display: 'inline-block', marginLeft: '0.5rem', width: '20px', height: '20px' }} />
               </button>
               <button
                 onClick={() => navigate('/admin-secure-portal')}
-                className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg text-lg font-semibold hover:bg-blue-50 transform hover:scale-105 transition-all duration-200 shadow-lg"
+                style={{
+                  padding: '1rem 2rem',
+                  backgroundColor: 'white',
+                  color: '#2563eb',
+                  border: '2px solid #2563eb',
+                  borderRadius: '0.5rem',
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  transition: 'all 0.3s',
+                  transform: 'scale(1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f0f9ff';
+                  e.currentTarget.style.boxShadow = '0 10px 15px rgba(0,0,0,0.15)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white';
+                  e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               >
                 Admin Portal
               </button>
@@ -94,174 +170,118 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Enterprise-Grade Features
+      <section id="features" style={{ padding: '5rem 1rem', backgroundColor: 'white' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '1rem' }}>
+              Platform Features
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Everything you need to run a successful recharge distribution business
+            <p style={{ fontSize: '1.125rem', color: '#4b5563', maxWidth: '48rem', margin: '0 auto' }}>
+              Everything you need to manage a successful B2B recharge business
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={index}
-                  className="p-6 bg-white rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* User Roles Section */}
-      <section id="roles" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Built for Every Role
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Specialized dashboards and tools for each user type
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
             {[
-              { role: 'Customer', desc: 'Quick recharges, wallet management, transaction history' },
-              { role: 'Retailer', desc: 'Process recharges, earn commissions, track sales' },
-              { role: 'Distributor', desc: 'Manage retailers, inventory control, team analytics' },
-              { role: 'Master Distributor', desc: 'Network oversight, advanced reporting, bulk operations' },
-              { role: 'API User', desc: 'RESTful API access, documentation, integration tools' },
-              { role: 'Admin', desc: 'Platform control, user management, system monitoring' },
-            ].map((item, index) => (
+              { icon: Shield, title: 'Secure Payments', description: 'Bank-grade security with PCI DSS compliance' },
+              { icon: Users, title: 'Multi-Role System', description: 'Customer, Retailer, Distributor, Master Distributor, API User, Admin' },
+              { icon: TrendingUp, title: 'Real-time Analytics', description: 'Track transactions, commissions, and performance' },
+              { icon: Globe, title: 'API Integration', description: 'Seamless integration with your existing systems' }
+            ].map((feature, idx) => (
               <div
-                key={index}
-                className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-l-4 border-blue-600"
+                key={idx}
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '0.75rem',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  padding: '2rem',
+                  border: '1px solid #e5e7eb',
+                  transition: 'all 0.3s',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.role}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <feature.icon style={{ width: '40px', height: '40px', color: '#2563eb', marginBottom: '1rem' }} />
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#111827', marginBottom: '0.5rem' }}>
+                  {feature.title}
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6' }}>
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section id="benefits" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Why Choose Charge Flow?
-              </h2>
-              <div className="space-y-4">
-                {[
-                  'Instant recharge processing with 99.9% uptime',
-                  'Multi-level commission structure',
-                  'Real-time transaction tracking and reporting',
-                  'Secure wallet system with fraud detection',
-                  'Complete API for custom integrations',
-                  '24/7 customer support and monitoring',
-                ].map((benefit, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-1">
-                      <Check className="w-4 h-4 text-green-600" />
-                    </div>
-                    <p className="text-gray-700 text-lg">{benefit}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-8 text-white shadow-2xl">
-                <BarChart className="w-16 h-16 mb-4 opacity-80" />
-                <h3 className="text-2xl font-bold mb-4">Enterprise Ready</h3>
-                <p className="text-blue-100 mb-6">
-                  Trusted by businesses processing millions in recharge transactions
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-3xl font-bold">99.9%</div>
-                    <div className="text-blue-200 text-sm">Uptime</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold">24/7</div>
-                    <div className="text-blue-200 text-sm">Support</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* User Roles Section */}
+      <section id="roles" style={{ padding: '5rem 1rem', backgroundColor: '#f9fafb' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '1rem' }}>
+              6 Specialized User Roles
+            </h2>
+            <p style={{ fontSize: '1.125rem', color: '#4b5563', maxWidth: '48rem', margin: '0 auto' }}>
+              Tailored dashboards and features for each role in your distribution network
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Ready to Transform Your Business?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join hundreds of businesses already using Charge Flow
-          </p>
-          <button
-            onClick={() => navigate('/login')}
-            className="px-8 py-4 bg-white text-blue-600 rounded-lg text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-xl"
-          >
-            Get Started Now <ArrowRight className="inline-block ml-2 w-5 h-5" />
-          </button>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {[
+              { title: 'Customer', features: ['Purchase recharges', 'View history', 'Manage wallet'] },
+              { title: 'Retailer', features: ['Sell recharges', 'Commission tracking', 'Inventory management'] },
+              { title: 'Distributor', features: ['Manage retailers', 'Bulk recharges', 'Advanced analytics'] },
+              { title: 'Master Distributor', features: ['Multi-distributor', 'Commission control', 'Custom pricing'] },
+              { title: 'API User', features: ['API integration', 'Webhook support', 'Rate limiting'] },
+              { title: 'Admin', features: ['Full control', 'User management', 'System settings'] }
+            ].map((role, idx) => (
+              <div
+                key={idx}
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '0.75rem',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                  padding: '1.5rem',
+                  border: '1px solid #e5e7eb'
+                }}
+              >
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#2563eb', marginBottom: '1rem' }}>
+                  {role.title}
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {role.features.map((feature, fidx) => (
+                    <li key={fidx} style={{ color: '#4b5563', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ color: '#2563eb', fontWeight: 'bold' }}>✓</span> {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Zap className="w-6 h-6 text-blue-500" />
-                <span className="text-white font-bold">Charge Flow</span>
-              </div>
-              <p className="text-sm">Empowering recharge businesses with enterprise-grade technology</p>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#features" className="hover:text-white">Features</a></li>
-                <li><a href="#roles" className="hover:text-white">User Roles</a></li>
-                <li><a href="#benefits" className="hover:text-white">Benefits</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">About Us</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
-                <li><a href="#" className="hover:text-white">Support</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white">Terms of Service</a></li>
-              </ul>
-            </div>
+      <footer style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '3rem 1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '2rem' }}>
+            <Zap style={{ width: '24px', height: '24px', color: '#60a5fa' }} />
+            <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Charge Flow</span>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2024 Charge Flow. All rights reserved.</p>
+          <p style={{ color: '#9ca3af', marginBottom: '2rem' }}>
+            © 2024 Charge Flow. Complete B2B Recharge Platform. All rights reserved.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', fontSize: '14px' }}>
+            <a href="#" style={{ color: '#60a5fa', textDecoration: 'none' }}>Terms of Service</a>
+            <a href="#" style={{ color: '#60a5fa', textDecoration: 'none' }}>Privacy Policy</a>
+            <a href="#" style={{ color: '#60a5fa', textDecoration: 'none' }}>Contact Us</a>
           </div>
         </div>
       </footer>
