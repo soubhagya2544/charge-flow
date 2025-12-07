@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -9,27 +9,6 @@ import APIUserPanel from './pages/APIUserPanel';
 import B2BBillingPanel from './components/b2b/B2BBillingPanel';
 
 function App() {
-  useEffect(() => {
-    // Inject base styles to ensure rendering
-    const style = document.createElement('style');
-    style.textContent = `
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html, body, #root {
-        width: 100%;
-        height: 100%;
-      }
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
@@ -47,25 +26,23 @@ function App() {
   };
 
   return (
-    <div style={{ minHeight: '100vh' }}>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={
-          isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />
-        } />
-        <Route path="/admin-secure-portal" element={
-          isAuthenticated && userRole === 'admin' ? <Navigate to="/dashboard" /> : <SecureAdminLogin onLogin={handleLogin} />
-        } />
-        <Route path="/dashboard" element={
-          !isAuthenticated ? <Navigate to="/login" /> :
-          userRole === 'admin' ? <AdminDashboard userEmail={userEmail} onLogout={handleLogout} /> :
-          userRole === 'api_user' ? <APIUserPanel userEmail={userEmail} /> :
-          userRole === 'b2b_user' ? <B2BBillingPanel userEmail={userEmail} /> :
-          <UserPanel onLogout={handleLogout} userEmail={userEmail} />
-        } />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={
+        isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />
+      } />
+      <Route path="/admin-secure-portal" element={
+        isAuthenticated && userRole === 'admin' ? <Navigate to="/dashboard" /> : <SecureAdminLogin onLogin={handleLogin} />
+      } />
+      <Route path="/dashboard" element={
+        !isAuthenticated ? <Navigate to="/login" /> :
+        userRole === 'admin' ? <AdminDashboard userEmail={userEmail} onLogout={handleLogout} /> :
+        userRole === 'api_user' ? <APIUserPanel userEmail={userEmail} /> :
+        userRole === 'b2b_user' ? <B2BBillingPanel userEmail={userEmail} /> :
+        <UserPanel onLogout={handleLogout} userEmail={userEmail} />
+      } />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   );
 }
 
