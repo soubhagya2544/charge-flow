@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 import { shipperIdsPlugin } from "./plugins/vite-plugin-shipper-ids";
 
 export default defineConfig({
-  plugins: [shipperIdsPlugin(), react(), tailwindcss()],
+  plugins: process.env.NODE_ENV === 'development' ? [shipperIdsPlugin(), react(), tailwindcss()] : [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
