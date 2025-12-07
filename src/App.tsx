@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -9,6 +9,27 @@ import APIUserPanel from './pages/APIUserPanel';
 import B2BBillingPanel from './components/b2b/B2BBillingPanel';
 
 function App() {
+  useEffect(() => {
+    // Inject base styles to ensure rendering
+    const style = document.createElement('style');
+    style.textContent = `
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body, #root {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    `;
+    document.head.appendChild(style);
+  }, []);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
