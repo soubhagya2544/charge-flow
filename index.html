@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Aggressive extension error blocking
+      (function() {
+        // Block all extension-related errors before they propagate
+        const blockExtensionError = (e) => {
+          if (!e) return false;
+          
+          const msg = String((e.error && e.error.message) || e.message || e.reason || '').toLowerCase();
+          const stack = String((e.error && e.error.stack) || '').toLowerCase();
+          const source = String(e.filename || '').toLowerCase();
+          
+          const isExtensionError = 
+            msg.includes('ton') ||
+            msg.includes('disconnected') ||
+            msg.includes('port object') ||
+            msg.includes('chrome-extension') ||
+            msg.includes('requestaccounts') ||
+            msg.includes('dapp') ||
+            stack.includes('chrome-extension') ||
+            stack.includes('extensionserviceworker') ||
+            source.includes('chrome-extension');
+          
+          if (isExtensionError) {
+            e.stopPropagation?.();
+            e.stopImmediatePropagation?.();
+            e.preventDefault?.();
+            return true;
+          }
+          return false;
+        };
+
+        // Intercept window errors
+        window.addEventListener('error', blockExtensionError, true);
+        
+        // Intercept unhandled rejections
+        window.addEventListener('unhandledrejection', blockExtensionError, true);
+        
+        // Intercept message events from extensions
+        window.addEventListener('message', (e) => {
+          if (e.source === window && e.data && typeof e.data === 'object') {
+            if (e.data.type && String(e.data.type).includes('extension')) {
+              e.stopPropagation?.();
+              e.stopImmediatePropagation?.();
+            }
+          }
+        }, true);
+
+        // Override console.error to suppress extension errors
+        const originalError = console.error;
+        console.error = function(...args) {
+          const msg = String(args[0] || '').toLowerCase();
+          if (!msg.includes('chrome-extension') && !msg.includes('ton') && !msg.includes('disconnected')) {
+            originalError.apply(console, args);
+          }
+        };
+
+        // Override console.warn to suppress extension warnings
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+          const msg = String(args[0] || '').toLowerCase();
+          if (!msg.includes('chrome-extension') && !msg.includes('ton') && !msg.includes('port object')) {
+            originalWarn.apply(console, args);
+          }
+        };
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon_shipper.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com;" />
+    <title>charge-flo</title>
+    <meta name="description" content="" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+import type { EntityConfig } from "../hooks/useEntity";
+
+export const busBookingEntityConfig: EntityConfig = {
+  name: "BusBooking",
+  orderBy: "created_at DESC",
+  properties: {
+    userId: { type: "string", description: "User ID who made the booking" },
+    userName: { type: "string", description: "User name" },
+    userEmail: { type: "string", description: "User email" },
+    apiProvider: { type: "string", description: "Bus API provider name" },
+    apiProviderId: { type: "string", description: "API provider ID" },
+    bookingId: { type: "string", description: "Internal booking ID" },
+    operatorBookingId: { type: "string", description: "Operator booking ID" },
+    busOperator: { type: "string", description: "Bus operator name" },
+    source: { type: "string", description: "Source city" },
+    destination: { type: "string", description: "Destination city" },
+    travelDate: { type: "string", format: "date", description: "Travel date" },
+    passengerName: { type: "string", description: "Passenger name" },
+    passengerPhone: { type: "string", description: "Passenger phone" },
+    seatNumbers: { type: "string", description: "Comma-separated seat numbers" },
+    amount: { type: "number", description: "Booking amount" },
+    status: {
+      type: "string",
+      enum: ["confirmed", "pending", "cancelled", "failed"],
+      default: "pending",
+      description: "Booking status",
+    },
+    apiResponse: { type: "string", description: "API response JSON" },
+    paymentMethod: { type: "string", description: "Payment method used" },
+    commissionAmount: { type: "number", description: "Commission earned" },
+    complaintStatus: {
+      type: "string",
+      enum: ["none", "raised", "resolved", "disputed"],
+      default: "none",
+      description: "Complaint status",
+    },
+    complaintId: { type: "string", description: "Complaint ID if raised" },
+    complaintNote: { type: "string", description: "Complaint note" },
+  },
+  required: ["userId", "userName", "apiProvider", "bookingId", "source", "destination", "amount", "status"],
+};
